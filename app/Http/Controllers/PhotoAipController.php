@@ -32,7 +32,7 @@ class PhotoAipController extends Controller
             "photos.*" => "file|mimes:jpeg,png|max:512",
         ]);
         foreach ($request->file('photos') as $photo) {
-            $newName = $photo->store('public');
+            $newName = $photo->store('public/');
             Photo::create([
                 "product_id" => $request->product_id,
                 "name" => $newName

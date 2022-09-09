@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ProductApiController extends Controller
     public function index()
     {
         $product = Product::latest('id')->paginate(10);
-        return response()->json($product);
+        return ProductResource::collection($product);
     }
 
     /**
@@ -62,7 +63,7 @@ class ProductApiController extends Controller
         if (is_null($product)) {
             return response()->json(["message" => "product not found."], 404);
         }
-        return response()->json($product);
+        return new ProductResource($product);
     }
 
     /**
